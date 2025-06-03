@@ -4,6 +4,8 @@ metadata:
   name: {{ .Release.Name }}-bookinfo
   labels:
     app: {{ .Release.Name }}-bookinfo
+    app.kubernetes.io/name: bookinfo
+    app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,6 +15,8 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}-bookinfo
+        app.kubernetes.io/name: bookinfo
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
       - name: bookinfo
@@ -20,6 +24,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8080
+          name: http
         resources:
           requests:
             memory: "{{ .Values.resources.requests.memory }}"
@@ -30,3 +35,30 @@ spec:
         env:
         - name: PORT
           value: "8080"
+        {{- range .Values.env }}
+        - name: {{ .name }}
+          value: {{ .value | quote }}
+        {{- end }}
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true

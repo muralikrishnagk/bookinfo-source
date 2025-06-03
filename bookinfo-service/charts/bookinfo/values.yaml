@@ -3,20 +3,36 @@ replicaCount: 1
 image:
   repository: localhost:5000/bookinfo
   tag: "latest"
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 80
+  targetPort: 8080
 
 resources:
   requests:
-    memory: "128Mi"
     cpu: "100m"
+    memory: "128Mi"
   limits:
-    memory: "256Mi"
     cpu: "200m"
+    memory: "256Mi"
 
 nodeSelector: {}
 tolerations: []
-affinity: {}
+
+# Additional configuration
+env:
+  - name: ENVIRONMENT
+    value: ""
+
+# Liveness and readiness probes
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 5

@@ -4,7 +4,14 @@ version: 0.1.0
 type: application
 description: A Helm chart for Bookinfo microservice
 sources:
-  - https://github.com/your-org/bookinfo-source
+  - https://github.com/akhilcheruvalat/bookinfo-source
 maintainers:
-  - name: Your Name
+  - name: Akhil Cheruvalath
     email: your.email@example.com
+
+# Default values for bookinfo
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Values from this file will be used as default values in the Helm templates
+# These can be overridden by values in the kustomization files or via ArgoCD
