@@ -7,8 +7,6 @@ image:
 
 service:
   type: ClusterIP
-  port: 80
-  targetPort: 8080
 
 resources:
   requests:
@@ -19,14 +17,13 @@ resources:
     memory: "256Mi"
 
 nodeSelector: {}
+
 tolerations: []
 
-# Additional configuration
 env:
   - name: ENVIRONMENT
     value: ""
 
-# Liveness and readiness probes
 livenessProbe:
   enabled: true
   initialDelaySeconds: 30

@@ -23,18 +23,18 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: 8080
+        - containerPort: 9090
           name: http
         resources:
           requests:
-            memory: "{{ .Values.resources.requests.memory }}"
             cpu: "{{ .Values.resources.requests.cpu }}"
+            memory: "{{ .Values.resources.requests.memory }}"
           limits:
-            memory: "{{ .Values.resources.limits.memory }}"
             cpu: "{{ .Values.resources.limits.cpu }}"
+            memory: "{{ .Values.resources.limits.memory }}"
         env:
         - name: PORT
-          value: "8080"
+          value: "9090"
         {{- range .Values.env }}
         - name: {{ .name }}
           value: {{ .value | quote }}
