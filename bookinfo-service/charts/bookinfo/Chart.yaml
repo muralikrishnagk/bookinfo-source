@@ -1,0 +1,10 @@
+apiVersion: v2
+name: bookinfo
+version: 0.1.0
+type: application
+description: A Helm chart for Bookinfo microservice
+sources:
+  - https://github.com/your-org/bookinfo-source
+maintainers:
+  - name: Your Name
+    email: your.email@example.com

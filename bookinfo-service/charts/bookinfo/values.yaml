@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: localhost:5000/bookinfo
+  tag: "latest"
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
