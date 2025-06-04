@@ -4,7 +4,7 @@ version: 0.1.0
 type: application
 description: A Helm chart for Bookinfo microservice
 sources:
-  - https://github.com/akhilcheruvalat/bookinfo-source
+  - https://github.com/muralikrishnagk/bookinfo-source
 maintainers:
   - name: Akhil Cheruvalath
     email: your.email@example.com
