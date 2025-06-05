@@ -3,20 +3,21 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-bookinfo
   labels:
-    app: {{ .Release.Name }}-bookinfo
     app.kubernetes.io/name: bookinfo
     app.kubernetes.io/instance: {{ .Release.Name }}
+    app: {{ .Release.Name }}-bookinfo # Retaining original app label for compatibility if needed
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-bookinfo
+      app.kubernetes.io/name: bookinfo
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-bookinfo
         app.kubernetes.io/name: bookinfo
         app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ .Release.Name }}-bookinfo # Retaining original app label
     spec:
       containers:
       - name: bookinfo
