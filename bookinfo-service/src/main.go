@@ -17,11 +17,11 @@ func main() {
 		w.Write([]byte("OK"))
 	})
 
-	http.HandleFunc("/api/bookinfo", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/service/info", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("{\"service\": \"bookinfo\", \"version\": \"1.0.0\"}"))
+		w.Write([]byte("{\"service\": \"bookinfo-service\", \"version\": \"1.0.0\"}"))
 	})
 
-	fmt.Printf("Starting Bookinfo service on port %s\n", port)
+	fmt.Printf("Starting bookinfo-service on port %s\n", port)
 	http.ListenAndServe(":"+port, nil)
 }

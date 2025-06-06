@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-bookinfo
+  name: {{ .Release.Name }}-bookinfo-service
   labels:
-    app.kubernetes.io/name: bookinfo
+    app.kubernetes.io/name: bookinfo-service
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app: {{ .Release.Name }}-bookinfo # Retaining original app label for compatibility if needed
+    app: {{ .Release.Name }}-bookinfo-service # Retaining original app label for compatibility if needed
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: bookinfo
+      app.kubernetes.io/name: bookinfo-service
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: bookinfo
+        app.kubernetes.io/name: bookinfo-service
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app: {{ .Release.Name }}-bookinfo # Retaining original app label
+        app: {{ .Release.Name }}-bookinfo-service # Retaining original app label
     spec:
       containers:
-      - name: bookinfo
+      - name: bookinfo-service
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:

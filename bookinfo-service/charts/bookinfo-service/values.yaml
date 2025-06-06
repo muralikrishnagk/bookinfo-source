@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: localhost:5000/bookinfo
+  repository: localhost:5000/bookinfo-service
   tag: "latest"
   pullPolicy: IfNotPresent
 

@@ -1,8 +1,8 @@
 apiVersion: v2
-name: bookinfo
+name: bookinfo-service
 version: 0.1.0
 type: application
-description: A Helm chart for Bookinfo microservice
+description: A Helm chart for Bookinfo-Service microservice
 sources:
   - https://github.com/muralikrishnagk/bookinfo-source
 maintainers:
