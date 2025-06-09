@@ -6,6 +6,13 @@ import (
 	"os"
 )
 
+func logRequestHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("bookinfo-service: Received request: %s %s\n", r.Method, r.URL.Path)
+		h.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -23,5 +30,5 @@ func main() {
 	})
 
 	fmt.Printf("Starting bookinfo-service on port %s\n", port)
-	http.ListenAndServe(":"+port, nil)
+	http.ListenAndServe(":"+port, logRequestHandler(http.DefaultServeMux))
 }
