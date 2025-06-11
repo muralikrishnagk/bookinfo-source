@@ -1,9 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
+)
+
+// Build-time injected variables
+var (
+	version   = "dev"    // Default value, will be overridden by ldflags
+	commit    = "none"   // Default value, will be overridden by ldflags
+	buildDate = "unknown" // Default value, will be overridden by ldflags
 )
 
 func logRequestHandler(h http.Handler) http.Handler {
@@ -25,8 +33,15 @@ func main() {
 	})
 
 	http.HandleFunc("/api/processor/info", func(w http.ResponseWriter, r *http.Request) {
+		info := map[string]string{
+			"service":   "bookinfo-processor",
+			"version":   version,
+			"commit":    commit,
+			"buildDate": buildDate,
+		}
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("{\"service\": \"bookinfo-processor\", \"version\": \"1.0.0\"}"))
+		json.NewEncoder(w).Encode(info)
 	})
 
 	http.HandleFunc("/api/processor/process", func(w http.ResponseWriter, r *http.Request) {
@@ -34,6 +49,6 @@ func main() {
 		w.Write([]byte("{\"status\": \"processed\", \"item_id\": \"example123\"}"))
 	})
 
-	fmt.Printf("Starting Bookinfo Processor service on port %s\n", port)
+	fmt.Printf("Starting Bookinfo Processor service version: %s, commit: %s, buildDate: %s on port %s\n", version, commit, buildDate, port)
 	http.ListenAndServe(":"+port, logRequestHandler(http.DefaultServeMux))
 }

@@ -4,7 +4,14 @@ WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 COPY src/ ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o bookinfo-service .
+
+# Define build arguments for versioning
+ARG VERSION=dev
+ARG COMMIT=none
+ARG BUILD_DATE=unknown
+
+# Build the Go app with ldflags to inject version information
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-X main.version=${VERSION} -X main.commit=${COMMIT} -X main.buildDate=${BUILD_DATE}" -o bookinfo-service .
 
 # Production stage
 FROM alpine:3.18
