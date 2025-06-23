@@ -6,6 +6,9 @@ metadata:
     app.kubernetes.io/name: bookinfo-processor
     app.kubernetes.io/instance: {{ .Release.Name }}
     app: {{ .Release.Name }}-bookinfo-processor # Retaining original app label for compatibility if needed
+    {{- with .Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -18,6 +21,9 @@ spec:
         app.kubernetes.io/name: bookinfo-processor
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ .Release.Name }}-bookinfo-processor # Retaining original app label
+        {{- with .Values.commonLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - name: bookinfo-processor
