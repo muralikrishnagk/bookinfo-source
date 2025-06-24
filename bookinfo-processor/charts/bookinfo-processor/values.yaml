@@ -21,6 +21,16 @@ nodeSelector: {}
 
 tolerations: []
 
+# ConfigMap settings for the processor service
+configMap:
+  enabled: true
+  data:
+    PROCESSOR_MODE: "normal"
+    MAX_THREADS: "4"
+    CACHE_EXPIRY: "120"
+    LOG_LEVEL: "warn"
+    PROCESSOR_ENV: "default"
+
 env:
   - name: ENVIRONMENT
     value: ""

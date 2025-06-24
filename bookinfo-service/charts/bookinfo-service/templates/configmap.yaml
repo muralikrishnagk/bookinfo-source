@@ -1,0 +1,17 @@
+{{- if .Values.configMap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-bookinfo-service-config
+  labels:
+    app.kubernetes.io/name: bookinfo-service
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: {{ .Release.Name }}-bookinfo-service
+    {{- with .Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+data:
+  {{- range $key, $val := .Values.configMap.data }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}

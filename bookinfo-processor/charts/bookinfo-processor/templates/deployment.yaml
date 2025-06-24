@@ -46,6 +46,16 @@ spec:
         - name: {{ .name }}
           value: {{ .value | quote }}
         {{- end }}
+        {{- if .Values.configMap.enabled }}
+        # Mount ConfigMap as environment variables
+        {{- range $key, $val := .Values.configMap.data }}
+        - name: {{ $key }}
+          valueFrom:
+            configMapKeyRef:
+              name: {{ $.Release.Name }}-bookinfo-processor-config
+              key: {{ $key }}
+        {{- end }}
+        {{- end }}
         livenessProbe:
           httpGet:
             path: /health

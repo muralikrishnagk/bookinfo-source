@@ -21,6 +21,17 @@ nodeSelector: {}
 
 tolerations: []
 
+# ConfigMap settings for the service
+configMap:
+  enabled: true
+  data:
+    API_TIMEOUT: "5000"
+    MAX_CONNECTIONS: "10"
+    DB_POOL_SIZE: "3"
+    LOG_LEVEL: "info"
+    FEATURE_FLAGS: "reviews-enabled,ratings-enabled"
+    SERVICE_ENV: "default"
+
 env:
   - name: ENVIRONMENT
     value: ""
