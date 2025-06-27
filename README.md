@@ -2,7 +2,7 @@
 
 This repository contains the source code and Helm charts for the Bookinfo microservice.
 
-## Project Structure
+## Project Structure 
 ```
 ├── bookinfo-service/
 │   ├── charts/
