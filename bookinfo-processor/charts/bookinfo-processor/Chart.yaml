@@ -1,6 +1,7 @@
 apiVersion: v2
 name: bookinfo-processor
-version: 0.1.4
+version: 1.0.4-SNAPSHOT
+appVersion: develop-SNAPSHOT
 type: application
 description: A Helm chart for Bookinfo Processor microservice
 sources:
