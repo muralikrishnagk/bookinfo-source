@@ -37,7 +37,7 @@ func main() {
 	// Kubernetes readiness probe endpoint
 	http.HandleFunc("/readiness", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("I am ready to serve traffic"))
+		w.Write([]byte("I am ready"))
 	})
 
 	// Kubernetes liveness probe endpoint
